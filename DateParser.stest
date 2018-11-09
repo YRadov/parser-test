@@ -1,0 +1,122 @@
+#!/bin/env spartan-test
+<?
+
+; include "DateParser.php";
+; include "HB.php";
+
+# delimited numbers
+HB::dtParse("07/04/1973");
+#=19730704
+// D/M/Y format
+HB::dtParse("07/04/1973", ["dmy" => 1]);
+#=19730407
+HB::dtParse("07-04-1973");
+#=19730704
+HB::dtParse("07.04.1973");
+#=19730704
+HB::dtParse("7/4/1973");
+#=19730704
+HB::dtParse("7/4/73");
+#=19730704
+HB::dtParse("07/04/73");
+#=19730704
+HB::dtParse("1973-07-04");
+#=19730704
+HB::dtParse("1973-7-4");
+#=19730704
+
+# partial month/year
+HB::dtParse("07/1973");
+#=19730700
+HB::dtParse("07/73");
+#=19730700
+
+# numbers only
+HB::dtParse("73");
+#=19730000
+HB::dtParse("1973");
+#=19730000
+HB::dtParse("197307");
+#=19730700
+HB::dtParse("19730704");
+#=19730704
+
+# month as string
+# mon day year
+HB::dtParse("Jul 4, 1973");
+#=19730704
+HB::dtParse("July 4, 1973");
+#=19730704
+HB::dtParse("July 4, 73");
+#=19730704
+HB::dtParse("July 4 1973");
+#=19730704
+HB::dtParse("July 4 73");
+#=19730704
+
+# day mon year
+HB::dtParse("4 Jul, 1973");
+#=19730704
+HB::dtParse("4 July, 1973");
+#=19730704
+HB::dtParse("4 July, 73");
+#=19730704
+HB::dtParse("4 July 1973");
+#=19730704
+HB::dtParse("4 July 73");
+#=19730704
+
+# week_day, mon day year
+HB::dtParse("Friday, Jul 4 1973");
+#=19730704
+HB::dtParse("Fri, July 4 1973");
+#=19730704
+
+# year mon d
+HB::dtParse("1973 Jul 4");
+#=19730704
+# year day mon
+HB::dtParse("1973 4 Jul");
+#=19730704
+
+# partial: mon year
+HB::dtParse("Jul 1973");
+#=19730700
+HB::dtParse("Jul1973");
+#=19730700
+HB::dtParse("July 1973");
+#=19730700
+HB::dtParse("July1973");
+#=19730700
+
+HB::dtParse("Jul 73");
+#=19730700
+HB::dtParse("Jul73");
+#=19730700
+HB::dtParse("July 73");
+#=19730700
+HB::dtParse("July73");
+#=19730700
+
+# partial: year mon
+HB::dtParse("1973 Jul");
+#=19730700
+HB::dtParse("1973Jul");
+#=19730700
+HB::dtParse("1973 July");
+#=19730700
+HB::dtParse("1973July");
+#=19730700
+
+HB::dtParse("73 Jul");
+#=19730700
+HB::dtParse("73Jul");
+#=19730700
+HB::dtParse("73 July");
+#=19730700
+HB::dtParse("72July");
+#=19720700
+
+# Unix timestamp()
+HB::dtParse(1469918475);
+#=20160730
