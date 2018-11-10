@@ -1,5 +1,6 @@
 <?php
 
+use Lib\DateParser;
 use Lib\HB;
 
 /**
@@ -16,7 +17,7 @@ class DateParserTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp()
     {
-        $this->parser = new HB();
+        $this->parser = new HB(new DateParser());
     }
 
     public function provideDates()
