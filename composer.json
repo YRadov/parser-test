@@ -6,7 +6,9 @@
             "email": "radov.yuriy@ukr.net"
         }
     ],
-    "require": {},
+    "require": {
+        "nesbot/carbon": "^2.5"
+    },
     "require-dev": {
         "phpunit/phpunit": "7"
     },

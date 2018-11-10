@@ -8,9 +8,8 @@ namespace Lib;
 
 
 use Carbon\Carbon;
-use Lib\Parsers\TimestampDateParser;
 
-class DateParser implements IParser
+class CarbonDateParser implements IParser
 {
     /**
      * @param mixed $date
@@ -32,11 +31,9 @@ class DateParser implements IParser
 
     private function getDataTypeParser($date)
     {
-        $carbon = new Carbon($date);
-        return (int)$carbon->format('Ymd');
-        var_dump($carbon->format('Ymd'));die;
         return new TimestampDateParser();
         throw new \InvalidArgumentException();
 
     }
-}// DateParser
+
+}// CarbonDateParser
