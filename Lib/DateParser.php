@@ -14,13 +14,11 @@ class DateParser implements IParser
 {
     /**
      * @param mixed $date
+     * @param null $format
      * @return int
      */
-    public function parse($date): int
+    public function parse($date, $format = null): int
     {
-        $carbon = new Carbon($date);
-        return (int)$carbon->format('Ymd');
-
         $parser = $this->getDataTypeParser($date);
         return $this->parseDate($parser, $date);
     }

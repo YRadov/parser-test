@@ -9,5 +9,5 @@ namespace Lib;
 
 interface IParser
 {
-    public function parse($data);
+    public function parse($data, $format);
 }

@@ -37,12 +37,13 @@ class DateParserTest extends \PHPUnit\Framework\TestCase
      * @dataProvider provideDates
      *
      * @param mixed $date
+     * @param array|string $format
      * @param int $expected
      * @throws Exception
      */
-    public function testDateParserUseCarbon($date, int $expected)
+    public function testDateParserUseCarbon($date, $format, int $expected)
     {
-        $this->assertEquals($expected, $this->carbonParser::dtParse($date));
+        $this->assertEquals($expected, $this->carbonParser::dtParse($date, $format));
     }
 
     /**

@@ -23,8 +23,8 @@ class HB
         self::$parser = $parser;
     }
 
-    public static function dtParse($data)
+    public static function dtParse($data, $format = null)
     {
-        return self::$parser->parse($data);
+        return self::$parser->parse($data, $format);
     }
 }// HB
