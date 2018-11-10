@@ -1,7 +1,6 @@
 <?php
 
 use Lib\CarbonDateParser;
-use Lib\DateParser;
 use Lib\HB;
 
 /**
@@ -14,17 +13,11 @@ class DateParserTest extends \PHPUnit\Framework\TestCase
     /**
      * @var HB
      */
-    private $commonParser;
-
-    /**
-     * @var HB
-     */
-    private $carbonParser;
+    private $parser;
 
     protected function setUp()
     {
-        $this->commonParser = new HB(new DateParser());
-        $this->carbonParser = new HB(new CarbonDateParser());
+        $this->parser = new HB(new CarbonDateParser());
     }
 
     public function provideDates()
@@ -41,20 +34,8 @@ class DateParserTest extends \PHPUnit\Framework\TestCase
      * @param int $expected
      * @throws Exception
      */
-    public function testDateParserUseCarbon($date, $format, int $expected)
+    public function testDateParser($date, $format, int $expected)
     {
-        $this->assertEquals($expected, $this->carbonParser::dtParse($date, $format));
+        $this->assertEquals($expected, $this->parser::dtParse($date, $format));
     }
-
-    /**
-     * @dataProvider provideDates
-     *
-     * @param mixed $date
-     * @param int $expected
-     * @throws Exception
-     */
-//    public function testDateParser($date, int $expected)
-//    {
-//        $this->assertEquals($expected, $this->commonParser::dtParse($date));
-//    }
 }// DateParserTest

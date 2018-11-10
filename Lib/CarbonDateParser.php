@@ -9,7 +9,7 @@ namespace Lib;
 
 use Carbon\Carbon;
 
-class CarbonDateParser implements IParser
+class CarbonDateParser extends DateParser implements IParser
 {
     /**
      * @param mixed $date
@@ -19,49 +19,27 @@ class CarbonDateParser implements IParser
     public function parse($date, $format = null): int
     {
         $date = $this->prepareDate($date, $format);
-        $carbon = new Carbon($date);
-        return (int)$carbon->format('Ymd');
-    }
-
-    private function prepareDate($date, $format)
-    {
-        if (is_int($date)) {
-            return $date;
+        try {
+            $carbon = new Carbon($date);
+        } catch (\Exception $e) {
+            $carbon = $this->tryCreateFromExtraFormats($date);
         }
-        if (isset($format)) {
-            return $this->prepareWithFormat($date, $format);
+        $result = $carbon->format('Ymd');
+        if ($this->dateWithoutDays($date)) {
+            $result = $this->removeDays($result);
+        } else {
+            /**
+             * There are two wrong day numbers
+             * Friday, Jul 4 1973
+             * Fri, July 4 1973
+             * it was July 6 or Wednesday 4
+             * change result as in received string
+             */
+            $result = $this->makeWrongDay($date, $result);
         }
-        $date = $this->checkDateString($date);
-        return $date;
-    }
-
-    /**
-     * @param string $date - e.g. ['07/04/1973', ['dmy' => 1]]
-     * @param mixed $format - e.g. ['dmy' => 1], 'dmy'
-     * @return int - Timestamp UTC
-     */
-    private function prepareWithFormat($date, $format): int
-    {
-        if (is_array($format)) {
-            $format = key($format);
+        if ($this->dateWithoutMonth($date)) {
+            $result = $this->removeMonth($result);
         }
-        $date = $this->checkDateString($date);
-        $format = $this->checkDateFormat($format);
-        $date = Carbon::createFromFormat($format, $date);
-
-        return $date->timestamp;
-    }
-
-    private function checkDateString(string $date): string
-    {
-        $date = str_replace(['.', '-'], '/', $date);
-        return $date;
-    }
-
-    private function checkDateFormat(string $format): string
-    {
-        $format = implode('/', str_split($format));
-        $format = str_replace(['y', 'M', 'D', '///'], ['Y', 'm', 'd', '/'], $format);
-        return $format;
+        return (int)$result;
     }
 }// CarbonDateParser
