@@ -7,49 +7,24 @@
 namespace Lib;
 
 
-use Lib\Parsers\TimestampParser;
-
 class HB
 {
-    const TIMESTAMP_TYPE = 'timestamp';
-
     /**
-     * @var DateParser
+     * @var IParser
      */
-    private $dateParser;
+    private static $parser;
 
     /**
      * HB constructor.
-     * @param $dateParser
+     * @param IParser $parser
      */
-    public function __construct(DateParser $dateParser)
+    public function __construct(IParser $parser)
     {
-        $this->dateParser = $dateParser;
+        self::$parser = $parser;
     }
 
-    public function dtParse($date): int
+    public static function dtParse($data)
     {
-        $type = $this->checkType($date);
-        return $this->getFormatDate($type, $date);
-    }
-
-    private function checkType($date)
-    {
-        return self::TIMESTAMP_TYPE;
-    }
-
-    /**
-     * @param string $type
-     * @param mixed $date
-     * @return int
-     */
-    private function getFormatDate($type, $date)
-    {
-        switch ($type) {
-            case self::TIMESTAMP_TYPE:
-                return $this->dateParser->parse(new TimestampParser(), $date);
-        }
-
-        throw new \InvalidArgumentException();
+        return self::$parser->parse($data);
     }
 }// HB

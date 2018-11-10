@@ -7,7 +7,7 @@
 namespace Lib;
 
 
-interface IParser
+interface IDateParser
 {
-    public function parse($data);
+    public function parse($data): int;
 }

@@ -35,6 +35,6 @@ class DateParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testDateParser($date, int $expected)
     {
-        $this->assertEquals($expected, $this->parser->dtParse($date));
+        $this->assertEquals($expected, $this->parser::dtParse($date));
     }
 }// DateParserTest

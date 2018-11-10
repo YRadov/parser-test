@@ -7,12 +7,15 @@
 namespace Lib\Parsers;
 
 
-use Lib\IParser;
+use Lib\IDateParser;
 
-class TimestampParser implements IParser
+class TimestampDateParser implements IDateParser
 {
     public function parse($timestamp): int
     {
+        if (!is_int($timestamp)) {
+            throw new \InvalidArgumentException(__CLASS__ . '::' . __METHOD__);
+        }
         $date = new \DateTime("@$timestamp");
         return $date->format('Ymd');
     }

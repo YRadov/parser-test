@@ -7,10 +7,37 @@
 namespace Lib;
 
 
-class DateParser
+use Lib\Parsers\TimestampDateParser;
+
+class DateParser implements IParser
 {
-    public function parse(IParser $parser, $data): int
+    const TIMESTAMP_TYPE = 'timestamp';
+
+    /**
+     * @var string
+     */
+    private $type;
+
+
+    /**
+     * @param mixed $date
+     * @return int
+     */
+    public function parse($date): int
+    {
+        $parser = $this->getDataTypeParser($date);
+        return $this->parseDate($parser, $date);
+    }
+
+    private function parseDate(IDateParser $parser, $data): int
     {
         return $parser->parse($data);
+    }
+
+    private function getDataTypeParser($date)
+    {
+        return new TimestampDateParser();
+        throw new \InvalidArgumentException();
+
     }
 }// DateParser
