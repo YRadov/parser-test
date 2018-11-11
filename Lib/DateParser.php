@@ -38,7 +38,7 @@ abstract class DateParser implements IParser
         'Y',
     ];
 
-    protected static $fmtsWithDays_ = [
+    protected static $fmtsWithDays = [
         'j F, y',
         'l, M j Y',
         'Y M j',
@@ -162,6 +162,6 @@ abstract class DateParser implements IParser
 
     protected function formatWithDays(string $format): bool
     {
-        return in_array($format, self::$fmtsWithDays_);
+        return in_array($format, self::$fmtsWithDays);
     }
 }// DateParser
