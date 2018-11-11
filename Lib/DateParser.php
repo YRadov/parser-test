@@ -9,7 +9,7 @@ namespace Lib;
 
 use Carbon\Carbon;
 
-abstract class DateParser
+abstract class DateParser implements IParser
 {
     protected static $usedFmts = [
         'l, M j Y',

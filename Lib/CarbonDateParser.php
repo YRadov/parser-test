@@ -9,7 +9,7 @@ namespace Lib;
 
 use Carbon\Carbon;
 
-class CarbonDateParser extends DateParser implements IParser
+class CarbonDateParser extends DateParser
 {
     /**
      * @param mixed $date

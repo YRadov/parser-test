@@ -7,7 +7,7 @@
 namespace Lib;
 
 
-class HandDateParser extends DateParser implements IParser
+class HandDateParser extends DateParser
 {
     /**
      * @param mixed $date
